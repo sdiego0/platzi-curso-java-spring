@@ -10,6 +10,8 @@ Curso de Java Spring en Platzi
   -PostgreSql Driver
   -MapsTruct
   -Spring Security
+  -Swagger2
+  -JWT
 
 El proyecto consiste en una aplicacion para un supermercado en el cual se exponen apis para realizar la modificacion de productos
 asi como optener informacion de los mismos.
