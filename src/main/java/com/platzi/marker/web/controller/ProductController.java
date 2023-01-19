@@ -2,6 +2,10 @@ package com.platzi.marker.web.controller;
 
 import com.platzi.marker.domain.Product;
 import com.platzi.marker.domain.service.ProductService;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,11 +20,18 @@ public class ProductController {
     @Autowired //se puede usar ya que se tiene una anotacion de Spring
     private ProductService productService;
     @GetMapping("/all")
+    @ApiOperation("Obtienes todos los productos del supermarket")
+    @ApiResponse(code = 200,message = "OK")
     public ResponseEntity<List<Product>>getAll(){
         return new ResponseEntity<>(productService.getAll(), HttpStatus.OK);
     }
     @GetMapping("/{id}")
-    public ResponseEntity<Product>getById(@PathVariable("id") int productId){
+    @ApiOperation("Buscar un producto por su id")
+    @ApiResponses({
+            @ApiResponse(code = 200,message = "OK"),
+            @ApiResponse(code = 404,message = "Not-Found")
+    })
+    public ResponseEntity<Product>getById(@ApiParam(value = "es el id del productp") @PathVariable("id") int productId){
         return productService.getProduct(productId).map(product ->
                 new ResponseEntity<>(product,HttpStatus.OK))
                 .orElse( new ResponseEntity<>(HttpStatus.NOT_FOUND));
